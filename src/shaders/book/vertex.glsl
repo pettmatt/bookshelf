@@ -1,12 +1,16 @@
-varying vec2 vUv;
+attribute vec3 position;
+attribute vec3 normal;
 
-void main()
-{
-    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectionPosition = projectionMatrix * viewPosition;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat3 normalMatrix;
 
-    gl_Position = projectionPosition;
+varying vec3 vNormal;
 
-    vUv = uv;
+void main() {
+    // Pass the transformed normal to the fragment shader
+    vNormal = normalize(normalMatrix * normal);
+
+    // Transform the position by the modelView and projection matrices
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
