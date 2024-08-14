@@ -9,10 +9,10 @@ export default function Experience()
     return <>
         <Perf position="top-left" />
 
-        <color args={ [ "#030202" ] } attach="background" />
+        <color args={ [ "pink" ] } attach="background" />
         <OrbitControls makeDefault />
 
-        <directionalLight castShadow position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
+        <directionalLight castShadow position={ [1, 2, 3] } intensity={ 4.5 } />
         <ambientLight intensity={ 1.5 } />
 
         <BookShelf iterate={ 10 } rows={ 5 } columns={ 10 } gap={ 1 }>
