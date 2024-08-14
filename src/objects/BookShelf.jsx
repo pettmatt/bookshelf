@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
+import * as THREE from 'three'
 
 export default function BookShelf(props) {
-    const childrenArray = []
+    const books = useRef()
 
     function calculateWithLimit(calculation, index, limit) {
         if (index > limit) {
@@ -20,21 +21,29 @@ export default function BookShelf(props) {
         return 0
     }
 
-    for (let i = 0; i < props.iterate; i++) {
-        const position = [
-            calculateWithLimit(props.gap * i, i, props.columns),
-            checkWhichRow(props.rows, props.columns, i),
-            0
-        ]
+    useEffect(() => {
+        books.current = new THREE.InstancedMesh()
+        for (let i = 0; i < props.iterate; i++) {
+            const xPosition = calculateWithLimit(props.gap * i, i, props.columns)
+            const yPosition = checkWhichRow(props.rows, props.columns, i)
 
-        childrenArray.push(
-            React.cloneElement(props.children, { key: i, position })
-        )
-    }
+            const position = new THREE.Vector3(xPosition, yPosition, 0)
+            const quaternion = new THREE.Quaternion()
+            const scale = new THREE.Vector3(1, 1, 1)
+
+            const matrix = new THREE.Matrix4()
+            matrix.compose(
+                position,
+                quaternion,
+                scale
+            )
+            books.current.setMatrixAt(i, matrix)
+        }
+    }, [])
 
     return (
         <>
-            { childrenArray }
+            { React.cloneElement(props.children, { books }) }
         </>
     )
 }

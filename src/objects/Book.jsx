@@ -15,22 +15,22 @@ const material = shaderMaterial(
 
 extend({ material })
 
-export default function Book({ meshProperties, boxProperties, boxMesheProperties }) {
+export default function Book({ meshProperties, boxProperties, boxMesheProperties, books }) {
     // const bakedTexture = useTexture('../model/textureName.jpg')
     // bakedTexture.flipY = false
 
-    const material = useRef()
-    useFrame((state, delta) => {
-        const time = state.clock.elapsedTime
+    // const material = useRef()
+    // useFrame((state, delta) => {
+    //     const time = state.clock.elapsedTime
 
-        // Placeholder animation
-        material.current.rotation.y += delta * 0.25
-        material.current.rotation.z += delta * 0.15
-        material.current.position.y = Math.sin(time) * 0.1
-    })
+    //     // Placeholder animation
+    //     material.current.rotation.y += delta * 0.25
+    //     material.current.rotation.z += delta * 0.15
+    //     material.current.position.y = Math.sin(time) * 0.1
+    // })
 
-    return <mesh ref={ material } castShadow scale={ [0.3, 1, 1] } position={ [ 0, 0, 0 ] } { ...meshProperties }>
+    return <instancedMesh ref={ books } castShadow scale={ [0.3, 1, 1] } { ...meshProperties }>
         <boxGeometry { ...boxProperties } />
         <meshStandardMaterial color="orange" { ...boxMesheProperties } />
-    </mesh>
+    </instancedMesh>
 }
