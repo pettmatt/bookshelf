@@ -1,6 +1,6 @@
 import { shaderMaterial, useTexture } from '@react-three/drei'
 import { extend, useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import fragmentShader from '../shaders/book/fragment.glsl'
 import vertexShader from '../shaders/book/vertex.glsl'
@@ -15,7 +15,7 @@ const material = shaderMaterial(
 
 extend({ material })
 
-export default function Book({ meshProperties, boxProperties, boxMesheProperties, books }) {
+export default function Book({ books, count }) {
     // const bakedTexture = useTexture('../model/textureName.jpg')
     // bakedTexture.flipY = false
 
@@ -29,8 +29,8 @@ export default function Book({ meshProperties, boxProperties, boxMesheProperties
     //     material.current.position.y = Math.sin(time) * 0.1
     // })
 
-    return <instancedMesh ref={ books } castShadow scale={ [0.3, 1, 1] } { ...meshProperties }>
-        <boxGeometry { ...boxProperties } />
-        <meshStandardMaterial color="orange" { ...boxMesheProperties } />
+    return <instancedMesh ref={ books } args={ [null, null, count] } castShadow receiveShadow>
+        <boxGeometry />
+        <meshStandardMaterial color="orange" />
     </instancedMesh>
 }
