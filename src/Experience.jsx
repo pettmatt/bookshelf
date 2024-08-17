@@ -15,7 +15,7 @@ export default function Experience()
         <directionalLight castShadow position={ [1, 2, 3] } intensity={ 4.5 } />
         <ambientLight intensity={ 1.5 } />
 
-        <BookShelf iterate={ 10 } rows={ 5 } columns={ 10 } gap={ 1 }>
+        <BookShelf iterate={ 15 } rows={ 5 } columns={ 10 } gap={ 0.35 }>
             <Book />
         </BookShelf>
     </>
