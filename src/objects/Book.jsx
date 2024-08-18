@@ -15,7 +15,7 @@ const material = shaderMaterial(
 
 extend({ material })
 
-export default function Book({ books, count }) {
+export default function Book({ books, material, count }) {
     // const bakedTexture = useTexture('../model/textureName.jpg')
     // bakedTexture.flipY = false
 
