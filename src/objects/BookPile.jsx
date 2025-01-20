@@ -49,7 +49,7 @@ export default function BookPile(props) {
             new THREE.MeshBasicMaterial({ map: loader.load('back.jpg') }), // Left face
             new THREE.MeshBasicMaterial({ map: loader.load('pagetop.jpg') }), // Top face
             new THREE.MeshBasicMaterial({ map: loader.load('pagebottom.jpg') }), // Bottom face
-            new THREE.MeshBasicMaterial({ map: loader.load('back.jpg') }), // Front face
+            new THREE.MeshBasicMaterial({ map: loader.load('spine.jpg') }), // Front face
             new THREE.MeshBasicMaterial({ map: loader.load('pagefront.jpg') }), // Back face
         ]
         const color = new THREE.Color()
