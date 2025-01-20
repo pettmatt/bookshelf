@@ -36,8 +36,8 @@ export default function BookShelf(props) {
         const color = new THREE.Color()
 
         for (let i = 0; i < props.iterate; i++) {
-            const xPosition = calculateWithLimit(props.gap, i, props.columns)
-            const yPosition = checkRow(props.rows, props.columns, i)
+            const xPosition = calculateWithLimit(props.gap, i, props.columnLimit)
+            const yPosition = checkRow(props.rows, props.columnLimit, i)
 
             const position = new THREE.Vector3(xPosition, yPosition, 0)
             const quaternion = new THREE.Quaternion()
