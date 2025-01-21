@@ -1,5 +1,6 @@
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
+import { IsDevelopmentEnvironment } from '../../services/environment'
 
 export default function SpotLight(props) {
 	const spotLightRef = useRef()
@@ -23,9 +24,11 @@ export default function SpotLight(props) {
 
 	return <>
 		<spotLight castShadow ref={ spotLightRef } position={ increaseYValue(props.position) || [0, 5, 0] } angle={ 2 } penumbra={ 0.5 } intensity={ 1.5 } />
-		<mesh ref={ visualizedLight }>
-			<sphereGeometry args={ [ 0.2 ] } />
-			<meshBasicMaterial wireframe={ true } color="yellow" opacity={ 0.3 } transparent />
-		</mesh>
+		{ (IsDevelopmentEnvironment()) &&
+			<mesh ref={ visualizedLight }>
+				<sphereGeometry args={ [ 0.2 ] } />
+				<meshBasicMaterial wireframe={ true } color="yellow" opacity={ 0.3 } transparent />
+			</mesh>
+		}
 	</>
 }

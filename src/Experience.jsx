@@ -7,6 +7,7 @@ import BookPile from './objects/BookPile'
 import SpotLight from './objects/lights/SpotLight'
 import { getEntries } from './services/retriever'
 import { handleCaching, checkCachedObject } from './services/cache'
+import { IsDevelopmentEnvironment } from './services/environment'
 
 export default function Experience() {
 	const [message, setMessage] = useState(false)
@@ -49,7 +50,9 @@ export default function Experience() {
 	}, [])
 
     return <>
-        <Perf position="top-left" />
+		{ (IsDevelopmentEnvironment()) &&
+			<Perf position="top-left" />
+		}
 
         <color args={ [ "black" ] } attach="background" />
         <OrbitControls makeDefault />
