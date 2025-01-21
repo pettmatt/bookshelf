@@ -4,33 +4,27 @@ import React from 'react'
 import Book from './objects/Book'
 import BookShelf from './objects/BookShelf'
 import BookPile from './objects/BookPile'
-import { useFrame } from '@react-three/fiber'
+import SpotLight from './objects/lights/SpotLight'
 
-export default function Experience()
-{
-	const spotLightRef = React.useRef()
-	const visualizedLight = React.useRef()
-
-	useFrame(() => {
-		if (visualizedLight.current && spotLightRef.current) {
-		  // Update light position if needed
-		  visualizedLight.current.position.copy(spotLightRef.current.position);
-		}
-	})
+export default function Experience() {
+	const piles = [{
+		position: [0, 0, 0],
+		delay: 2
+	},
+	{
+		position: [7, 0, -7.5],
+		delay: 3
+	},
+	{
+		position: [-7, 0, -7.5],
+		delay: 4
+	}]
 
     return <>
         <Perf position="top-left" />
 
         <color args={ [ "black" ] } attach="background" />
         <OrbitControls makeDefault />
-
-        {/* <directionalLight castShadow position={ [5, 10, 5] } intensity={ 1.0 } /> */}
-        {/* <ambientLight intensity={ 0.1 } /> */}
-		<spotLight castShadow ref={ spotLightRef } position={ [0, 5, 0] } angle={ 2 } penumbra={ 0.5 } intensity={ 2 } />
-		<mesh ref={ visualizedLight }>
-			<sphereGeometry args={ [ 0.2 ] } />
-			<meshBasicMaterial wireframe={ true } color="yellow" opacity={ 0.3 } transparent />
-		</mesh>
 
 		{/* Floor */}
 		<mesh visible receiveShadow position={ [0, -0.1, 0] } rotation={ [ -Math.PI / 2, 0, 0 ] }>
@@ -42,8 +36,15 @@ export default function Experience()
             <Book />
         </BookShelf> */}
 
-		<BookPile books={ 14 } piles={ 3 } pileLimit={ 5 } gap={ 0.2 }>
-            <Book rotationY={ 90 } />
-        </BookPile>
+		{ 
+			piles.map((pile, key) => {
+				return <React.Fragment key={`fragment-${key}`}>
+					<SpotLight position={ pile.position } />
+					<BookPile position={ pile.position } books={ 14 } piles={ 3 } pileLimit={ 5 } gap={ 0.2 }>
+						<Book rotationY={ 90 } />
+					</BookPile>
+				</React.Fragment>
+			})
+		}
     </>
 }

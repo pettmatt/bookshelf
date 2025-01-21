@@ -77,7 +77,7 @@ export default function BookPile(props) {
 
     return (
         <>
-            { React.cloneElement(props.children, { books, count: props.books }) }
+            { React.cloneElement(props.children, { books, count: props.books, position: props.position || [0, 0, 0] }) }
         </>
     )
 }

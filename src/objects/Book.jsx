@@ -15,7 +15,7 @@ const material = shaderMaterial(
 
 extend({ material })
 
-export default function Book({ books, material, count }) {
+export default function Book({ books, material, count, position }) {
     // const bakedTexture = useTexture('../model/textureName.jpg')
     // bakedTexture.flipY = false
 
@@ -29,7 +29,7 @@ export default function Book({ books, material, count }) {
     //     material.current.position.y = Math.sin(time) * 0.1
     // })
 
-    return <instancedMesh castShadow receiveShadow ref={ books } args={ [null, null, count] }>
+    return <instancedMesh castShadow receiveShadow ref={ books } args={ [null, null, count] } position={ position }>
         <boxGeometry />
         <meshStandardMaterial color="orange" />
     </instancedMesh>
