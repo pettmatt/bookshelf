@@ -1,24 +1,52 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Book from './objects/Book'
 import BookShelf from './objects/BookShelf'
 import BookPile from './objects/BookPile'
 import SpotLight from './objects/lights/SpotLight'
+import { getEntries } from './services/retriever'
+import { handleCaching, checkCachedObject } from './services/cache'
 
 export default function Experience() {
-	const piles = [{
-		position: [0, 0, 0],
-		delay: 2
-	},
-	{
-		position: [7, 0, -7.5],
-		delay: 3
-	},
-	{
-		position: [-7, 0, -7.5],
-		delay: 4
-	}]
+	const [message, setMessage] = useState(false)
+	const [entries, setEntries] = useState([])
+	const [piles, setPiles] = useState([
+		{
+			position: [0, 0, 0],
+			delay: 2,
+			entries: []
+		},
+		{
+			position: [7, 0, -7.5],
+			delay: 3,
+			entries: []
+		},
+		{
+			position: [-7, 0, -7.5],
+			delay: 4,
+			entries: []
+		}
+	])
+
+	
+	useEffect(() => {
+		const cacheEntries = checkCachedObject("entries")
+
+		if (cacheEntries?.status.old) {
+			getEntries()
+				.then((body) => {
+					if (body?.message) {
+						console.warn("Experience::useEffect::message", response)
+					} else {
+						setEntries(body)
+						handleCaching(body, "entries")
+					}
+				})
+		} else {
+			setEntries(cacheEntries.entries)
+		}
+	}, [])
 
     return <>
         <Perf position="top-left" />
