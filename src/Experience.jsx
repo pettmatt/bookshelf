@@ -32,6 +32,7 @@ export default function Experience() {
 
 	
 	useEffect(() => {
+		// Retrieve entries from memory or from the server
 		const cacheEntries = checkCachedObject("entries")
 
 		if (cacheEntries?.status.old) {
@@ -58,7 +59,7 @@ export default function Experience() {
         <OrbitControls makeDefault />
 
 		{/* Floor */}
-		<mesh visible receiveShadow position={ [0, -0.1, 0] } rotation={ [ -Math.PI / 2, 0, 0 ] }>
+		<mesh visible receiveShadow position={ [0, 0, 0] } rotation={ [ -Math.PI / 2, 0, 0 ] }>
 			<planeGeometry args={ [100, 100] } />
 			<meshStandardMaterial color="white" />
 		</mesh>
@@ -67,7 +68,7 @@ export default function Experience() {
             <Book />
         </BookShelf> */}
 
-		{ 
+		{
 			piles.map((pile, key) => {
 				return <React.Fragment key={`fragment-${key}`}>
 					<SpotLight position={ pile.position } />
