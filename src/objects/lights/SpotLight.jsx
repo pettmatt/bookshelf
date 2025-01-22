@@ -18,12 +18,13 @@ export default function SpotLight(props) {
 
 		const newLocation = [...locationArray]
 		const setY = newLocation[1]
-		newLocation[1] = (setY < 3) ? 3 : setY
+		newLocation[1] = (setY < 6) ? 6 : setY
+		newLocation[2] = newLocation[2] + 2
 		return newLocation
 	}
 
 	return <>
-		<spotLight castShadow ref={ spotLightRef } position={ increaseYValue(props.position) || [0, 5, 0] } angle={ 2 } penumbra={ 0.5 } intensity={ 1.5 } />
+		<spotLight castShadow ref={ spotLightRef } position={ increaseYValue(props.position) || [0, 5, 0] } angle={ 2 } penumbra={ 0.2 } intensity={ 20 } />
 		{ (IsDevelopmentEnvironment()) &&
 			<mesh ref={ visualizedLight }>
 				<sphereGeometry args={ [ 0.2 ] } />
