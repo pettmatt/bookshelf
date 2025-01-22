@@ -8,6 +8,7 @@ import SpotLight from './objects/lights/SpotLight'
 import { getEntries } from './services/retriever'
 import { handleCaching, checkCachedObject } from './services/cache'
 import { IsDevelopmentEnvironment } from './services/environment'
+import ParticleSystem from './systems/ParticleSystem'
 
 export default function Experience() {
 	const [message, setMessage] = useState(false)
@@ -54,6 +55,8 @@ export default function Experience() {
 		{ (IsDevelopmentEnvironment()) &&
 			<Perf position="top-left" />
 		}
+
+		<ParticleSystem particleCount={ 60000 } particleSpeed={ 1 } />
 
         <color args={ [ "black" ] } attach="background" />
         <OrbitControls makeDefault />
