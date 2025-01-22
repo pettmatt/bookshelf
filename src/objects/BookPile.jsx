@@ -7,16 +7,10 @@ export default function BookPile(props) {
 
     function calculateWithLimit(thicknessArray, limit, index) {
 		let currentThickness = 0 // Tracks the thickness
-		let currentIndexStart = Math.floor(index / limit) * limit // Makes sure the loop doesn't process earlier iterations (which would create floating items)
+		let currentIndexStart = Math.floor(index / limit) * limit // Makes sure the loop doesn't process earlier iterations (which creates floating items)
 	
 		for (let i = currentIndexStart; i < index; i++) {
 			currentThickness += thicknessArray[i]
-	
-			// If adding the next item exceeds the limit, move to the next line
-			if (currentThickness + thicknessArray[i + 1] > limit) {
-				currentThickness = 0 // Reset line width
-				currentIndexStart = i + 1 // Update the start index of the next line
-			}
 		}
 	
 		// Add the current item to the current thickness
