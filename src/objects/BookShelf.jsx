@@ -26,12 +26,12 @@ export default function BookShelf(props) {
     useEffect(() => {
         const loader = new THREE.TextureLoader()
         material.current = [
-            new THREE.MeshBasicMaterial({ map: loader.load('test.webp') }), // Right face
-            new THREE.MeshBasicMaterial({ map: loader.load('back.jpg') }), // Left face
-            new THREE.MeshBasicMaterial({ map: loader.load('pagetop.jpg') }), // Top face
-            new THREE.MeshBasicMaterial({ map: loader.load('pagebottom.jpg') }), // Bottom face
-            new THREE.MeshBasicMaterial({ map: loader.load('back.jpg') }), // Front face
-            new THREE.MeshBasicMaterial({ map: loader.load('pagefront.jpg') }), // Back face
+            new THREE.MeshBasicMaterial({ map: loader.load("world-war-z-front.jpg") }), // Right face
+            new THREE.MeshBasicMaterial({ map: loader.load("back.jpg") }), // Left face
+            new THREE.MeshBasicMaterial({ map: loader.load("pagetop.jpg") }), // Top face
+            new THREE.MeshBasicMaterial({ map: loader.load("pagebottom.jpg") }), // Bottom face
+            new THREE.MeshBasicMaterial({ map: loader.load("back.jpg") }), // Front face
+            new THREE.MeshBasicMaterial({ map: loader.load("pagefront.jpg") }), // Back face
         ]
         const color = new THREE.Color()
 
