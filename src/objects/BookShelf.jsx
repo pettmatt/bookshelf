@@ -58,7 +58,7 @@ export default function BookShelf(props) {
 
     return (
         <>
-            { React.cloneElement(props.children, { books, count: props.iterate }) }
+            { React.cloneElement(props.children, { books, count: props.iterate, enableClick: true }) }
         </>
     )
 }
