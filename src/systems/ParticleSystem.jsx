@@ -5,7 +5,7 @@ import * as THREE from 'three'
 // Even if this component has a generic name it focuses on generating 
 // objects at random position that slowly move to random direction
 
-export default function ParticleSystem({ object, particleCount, particleSpeed }) {
+export default function ParticleSystem({ particleCount, particleSpeed }) {
 	const mesh = useRef()
 	const dummy = useMemo(() => new THREE.Object3D(), [])
 
@@ -35,14 +35,14 @@ export default function ParticleSystem({ object, particleCount, particleSpeed })
 
 			// Update the particle time
 			const time = (particle.time += speed)
-		
+
 			// Update the particle position based on the time
 			dummy.position.set(
 				x + Math.cos((time / 10) * factor) + (Math.sin(time * 1) * factor) / 10,
 				y + Math.sin((time / 10) * factor) + (Math.cos(time * 2) * factor) / 10,
 				z + Math.cos((time / 10) * factor) + (Math.sin(time * 3) * factor) / 10
 			)
-		
+
 			const scale = Math.cos(time)
 			dummy.scale.set(scale, scale, scale)
 			dummy.updateMatrix()

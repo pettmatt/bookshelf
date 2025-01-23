@@ -1,7 +1,10 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+import { Text } from '@react-three/drei'
 import * as THREE from 'three'
 
 export default function BookPile(props) {
+	const [showText, setShowText] = useState(false)
+
     const books = useRef()
     const material = useRef()
 
@@ -47,6 +50,10 @@ export default function BookPile(props) {
 
 		return quaternion01.multiply(quaternion02)
 	}
+
+	useEffect(() => {
+		console.log("Showtext", showText)
+	}, [showText])
 
     useEffect(() => {
 		const coverOptions = {
@@ -96,9 +103,33 @@ export default function BookPile(props) {
         }
     }, [])
 
+	function mouseHovering(e, type) {
+		e.stopPropagation()
+
+		if (type === "entering") {
+			setShowText(true)
+		} else if (type === "leaving") {
+			setShowText(false)
+		}
+	}
+
+	function adjustHitboxPosition() {
+		const tempPosition = [...props.position]
+		tempPosition[1] = 1.5
+		console.log(tempPosition)
+		return tempPosition
+	}
+
     return (
         <>
-            { React.cloneElement(props.children, { books, count: props.books, position: props.position || [0, 0, 0] }) }
+			<mesh onClick={ props.onClick } onPointerOver={(event) => mouseHovering(event, "entering") } onPointerOut={ (event) => mouseHovering(event, "leaving") } position={ adjustHitboxPosition() }>
+				{ (showText) &&
+					<Text color="white" anchorX="center" anchorY={ -3 }>{ props.name }</Text>
+				}
+				<boxGeometry args={ [5, 3, 2] } />
+				<meshStandardMaterial visible={ false } />
+			</mesh>
+			{ React.cloneElement(props.children, { books, count: props.books, position: props.position || [0, 0, 0] }) }
         </>
     )
 }

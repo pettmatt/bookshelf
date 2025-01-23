@@ -15,16 +15,19 @@ export default function Experience() {
 	const [entries, setEntries] = useState([])
 	const [piles, setPiles] = useState([
 		{
+			name: "Reading",
 			position: [0, 0, 0],
 			delay: 2,
 			entries: []
 		},
 		{
+			name: "To be read",
 			position: [7, 0, -7.5],
 			delay: 3,
 			entries: []
 		},
 		{
+			name: "Read",
 			position: [-7, 0, -7.5],
 			delay: 4,
 			entries: []
@@ -51,15 +54,22 @@ export default function Experience() {
 		}
 	}, [])
 
+	function selectPile(e) {
+		e.stopPropagation()
+		// console.log(e, e.object)
+		console.log("You selected a pile")
+	}
+
     return <>
-		{ (IsDevelopmentEnvironment()) &&
-			<Perf position="top-left" />
+		{ (IsDevelopmentEnvironment()) && <>
+				<Perf position="top-left" />
+				<OrbitControls makeDefault />
+			</>
 		}
 
 		<ParticleSystem particleCount={ 60000 } particleSpeed={ 1 } />
 
         <color args={ [ "black" ] } attach="background" />
-        <OrbitControls makeDefault />
 
 		{/* Floor */}
 		<mesh visible receiveShadow position={ [0, 0, 0] } rotation={ [ -Math.PI / 2, 0, 0 ] }>
@@ -75,7 +85,7 @@ export default function Experience() {
 			piles.map((pile, key) => {
 				return <React.Fragment key={`fragment-${key}`}>
 					<SpotLight position={ pile.position } />
-					<BookPile position={ pile.position } books={ 14 } piles={ 3 } pileLimit={ 5 } gap={ 0.2 }>
+					<BookPile onClick={ selectPile } name={ pile.name } position={ pile.position } books={ 14 } piles={ 3 } pileLimit={ 5 } gap={ 0.2 }>
 						<Book rotationY={ 90 } />
 					</BookPile>
 				</React.Fragment>
