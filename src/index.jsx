@@ -1,43 +1,27 @@
 import './style.css'
 import ReactDOM from 'react-dom/client'
-import { Canvas } from '@react-three/fiber'
 import { StrictMode } from 'react'
+import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.jsx'
 import { IsDevelopmentEnvironment } from './services/environment.js'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
-
-function Index() {
-	return <>
-
-	</>
+const camera = {
+	fov: 45,
+	near: 0.1,
+	far: 400,
+	position: [0, 5, 12]
 }
 
 root.render(
 	(IsDevelopmentEnvironment()) ?
 		<StrictMode>
-			<Canvas
-				shadows
-				camera={ {
-					fov: 45,
-					near: 0.1,
-					far: 300,
-					position: [ 0, 5, 12 ]
-				} }
-			>
+			<Canvas shadows camera={ camera }>
 				<Experience />
 			</Canvas>
 		</StrictMode>
 	:
-		<Canvas
-			shadows
-			camera={ {
-				fov: 45,
-				near: 0.1,
-				far: 300,
-				position: [ 0, 5, 12 ]
-			} }
-		>
+		<Canvas shadows camera={ camera }>
 			<Experience />
 		</Canvas>
 )
