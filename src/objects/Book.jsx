@@ -29,8 +29,10 @@ export default function Book({ books, material, count, position }) {
     //     material.current.position.y = Math.sin(time) * 0.1
     // })
 
-    return <instancedMesh castShadow receiveShadow ref={ books } args={ [null, null, count] } position={ position }>
-        <boxGeometry />
-        <meshStandardMaterial color="orange" />
-    </instancedMesh>
+    return (
+		<instancedMesh ref={ books } castShadow receiveShadow args={ [null, null, count] } position={ position }>
+			<boxGeometry />
+			<meshStandardMaterial color="orange" />
+		</instancedMesh>
+	)
 }

@@ -12,8 +12,9 @@ import ParticleSystem from './systems/ParticleSystem'
 
 export default function Experience() {
 	const [message, setMessage] = useState(false)
-	const [entries, setEntries] = useState([])
-	const [piles, setPiles] = useState([
+	const [selectedPile, setSelectedPile] = useState(null)
+	const [entries, setEntries] = useState([]) // Unorganized entries
+	const [piles, setPiles] = useState([ // Organized entries
 		{
 			name: "Reading",
 			position: [0, 0, 0],
@@ -34,6 +35,9 @@ export default function Experience() {
 		}
 	])
 
+	useEffect(() => {
+		console.log("Experience::EntriesSet:", entries)
+	}, [entries])
 	
 	useEffect(() => {
 		// Retrieve entries from memory or from the server
@@ -56,8 +60,9 @@ export default function Experience() {
 
 	function selectPile(e) {
 		e.stopPropagation()
-		// console.log(e, e.object)
 		console.log("You selected a pile")
+
+
 	}
 
     return <>
@@ -77,9 +82,11 @@ export default function Experience() {
 			<meshStandardMaterial color="white" />
 		</mesh>
 
-        {/* <BookShelf iterate={ 15 } rows={ 5 } columnLimit={ 10 } gap={ 0.35 }>
-            <Book />
-        </BookShelf> */}
+		{ (selectedPile !== null) &&
+			<BookShelf iterate={ 15 } rows={ 5 } columnLimit={ 10 } gap={ 0.35 }>
+				<Book />
+			</BookShelf>
+		}
 
 		{
 			piles.map((pile, key) => {

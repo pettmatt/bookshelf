@@ -60,8 +60,10 @@ export default function ParticleSystem({ particleCount, particleSpeed }) {
 		mesh.current.instanceMatrix.needsUpdate = true
 	})
 
-    return <instancedMesh ref={ mesh } args={ [null, null, particleCount] }>
-		<circleGeometry args={ [0.01, 16] } />
-		<meshStandardMaterial color="#fff" transparent opacity={ 0.15 } />
-	</instancedMesh>
+    return (
+		<instancedMesh ref={ mesh } args={ [null, null, particleCount] }>
+			<circleGeometry args={ [0.01, 16] } />
+			<meshStandardMaterial color="#fff" transparent opacity={ 0.15 } />
+		</instancedMesh>
+	)
 }

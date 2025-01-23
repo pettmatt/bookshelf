@@ -116,20 +116,22 @@ export default function BookPile(props) {
 	function adjustHitboxPosition() {
 		const tempPosition = [...props.position]
 		tempPosition[1] = 1.5
-		console.log(tempPosition)
+
 		return tempPosition
 	}
 
-    return (
-        <>
-			<mesh onClick={ props.onClick } onPointerOver={(event) => mouseHovering(event, "entering") } onPointerOut={ (event) => mouseHovering(event, "leaving") } position={ adjustHitboxPosition() }>
-				{ (showText) &&
-					<Text color="white" anchorX="center" anchorY={ -3 }>{ props.name }</Text>
-				}
-				<boxGeometry args={ [5, 3, 2] } />
-				<meshStandardMaterial visible={ false } />
-			</mesh>
-			{ React.cloneElement(props.children, { books, count: props.books, position: props.position || [0, 0, 0] }) }
-        </>
-    )
+    return <>
+		<mesh onClick={ props.onClick } onPointerOver={(event) => mouseHovering(event, "entering") } onPointerOut={ (event) => mouseHovering(event, "leaving") } position={ adjustHitboxPosition() }>
+			{ (showText) &&
+				<Text color="white" anchorX="center" anchorY={ -3 }>{ props.name }</Text>
+			}
+			<boxGeometry args={ [5, 3, 2] } />
+			<meshStandardMaterial visible={ false } />
+		</mesh>
+		{
+			React.cloneElement(props.children, { 
+				books, count: props.books, position: props.position || [0, 0, 0] }
+			)
+		}
+	</>
 }
