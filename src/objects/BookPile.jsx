@@ -52,7 +52,8 @@ export default function BookPile(props) {
 	}
 
 	useEffect(() => {
-		console.log("Showtext", showText)
+		// Controls cursor
+		document.body.style.cursor = showText ? "pointer" : "default"
 	}, [showText])
 
     useEffect(() => {
