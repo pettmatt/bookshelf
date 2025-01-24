@@ -10,7 +10,8 @@ const camera = {
 	fov: 45,
 	near: 0.1,
 	far: 400,
-	position: [0, 5, 12]
+	position: [0, 5, 12],
+	makeDefault: true
 }
 
 root.render(
