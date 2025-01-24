@@ -21,18 +21,21 @@ export default function Experience() {
 			name: "Reading",
 			position: [0, 0, 0],
 			lightDelay: 2,
+			lightFlicker: false,
 			entries: []
 		},
 		{
 			name: "To be read",
 			position: [-7, 0, -7.5],
 			lightDelay: 3,
+			lightFlicker: false,
 			entries: []
 		},
 		{
 			name: "Read",
 			position: [7, 0, -7.5],
-			lightDelay: 4,
+			lightDelay: 4.5,
+			lightFlicker: true,
 			entries: []
 		}
 	])
@@ -51,7 +54,9 @@ export default function Experience() {
 	useEffect(() => {
 		// Set layers
 		mainScene.current.layers.set(0)
+		camera.layers.disableAll()
 		camera.layers.enable(0)
+		console.log("main layers", camera.layers)
 	}, [camera])
 	
 	useEffect(() => {
@@ -107,7 +112,7 @@ export default function Experience() {
 				piles.map((pile, index) => {
 					return (
 						<React.Fragment key={`fragment-${index}`}>
-							<SpotLight position={ pile.position } />
+							<SpotLight position={ pile.position } delay={ pile.lightDelay } flicker={ pile.lightFlicker } />
 							<BookPile onClick={ (event) => selectPile(event, index) } name={ pile.name } position={ pile.position } books={ 14 } piles={ 3 } pileLimit={ 5 } gap={ 0.2 }>
 								<Book rotationY={ 90 } />
 							</BookPile>
@@ -119,11 +124,9 @@ export default function Experience() {
 
 		{ (selectedPile !== null) &&
 			<Overlay3D layerId={ 1 }>
-				<mesh position={ [-1, 0.5, 5] }>
-					<BookShelf books={ selectedPile.entries } iterate={ 15 } rows={ 3 } columnLimit={ 10 } gap={ 0.3 }>
-						<Book />
-					</BookShelf>
-				</mesh>
+				<BookShelf books={ selectedPile.entries } iterate={ 15 } rows={ 3 } columnLimit={ 10 } gap={ 0.3 }>
+					<Book />
+				</BookShelf>
 			</Overlay3D>
 		}
     </>
