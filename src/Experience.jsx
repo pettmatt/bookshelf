@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Book from './objects/Book'
 import BookShelf from './objects/BookShelf'
 import BookPile from './objects/BookPile'
@@ -10,6 +10,7 @@ import ParticleSystem from './systems/ParticleSystem'
 import { getEntries } from './services/retriever'
 import { IsDevelopmentEnvironment } from './services/environment'
 import { handleCaching, checkCachedObject } from './services/cache'
+import { useThree } from '@react-three/fiber'
 
 export default function Experience() {
 	const [message, setMessage] = useState(false)
@@ -36,6 +37,9 @@ export default function Experience() {
 		}
 	])
 
+	const { camera } = useThree()
+	const mainScene = useRef()
+
 	useEffect(() => {
 		console.log("selected pile", selectedPile)
 	}, [selectPile])
@@ -43,6 +47,12 @@ export default function Experience() {
 	useEffect(() => {
 		console.log("Experience::EntriesSet:", entries)
 	}, [entries])
+
+	useEffect(() => {
+		// Set layers
+		mainScene.current.layers.set(0)
+		camera.layers.enable(0)
+	}, [camera])
 	
 	useEffect(() => {
 		// Retrieve entries from memory or from the server
@@ -75,7 +85,7 @@ export default function Experience() {
 	}
 
     return <>
-		<mesh>
+		<mesh ref={ mainScene }>
 			{ (IsDevelopmentEnvironment()) &&
 				<>
 					<Perf position="top-left" />
@@ -93,16 +103,6 @@ export default function Experience() {
 				<meshStandardMaterial color="white" />
 			</mesh>
 
-			{ (selectedPile !== null) &&
-				// 	<Overlay3D>
-				<mesh position={ [-1, 0.5, 5] }>
-					<BookShelf books={ selectedPile.entries } iterate={ 15 } rows={ 3 } columnLimit={ 10 } gap={ 0.3 }>
-						<Book />
-					</BookShelf>
-				</mesh>
-				// </Overlay3D>
-			}
-
 			{
 				piles.map((pile, index) => {
 					return (
@@ -116,5 +116,15 @@ export default function Experience() {
 				})
 			}
 		</mesh>
+
+		{ (selectedPile !== null) &&
+			<Overlay3D layerId={ 1 }>
+				<mesh position={ [-1, 0.5, 5] }>
+					<BookShelf books={ selectedPile.entries } iterate={ 15 } rows={ 3 } columnLimit={ 10 } gap={ 0.3 }>
+						<Book />
+					</BookShelf>
+				</mesh>
+			</Overlay3D>
+		}
     </>
 }

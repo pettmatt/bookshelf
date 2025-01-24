@@ -29,7 +29,7 @@ export default function Book({ books, material, count, position, enableClick }) 
 			const instanceId = intersections[0].instanceId
 			console.log("Clicked", instanceId, intersections[0])
 
-			// For some reason below doesn't produce anything. Probably because the instance doesn't have material set correctly
+			// For some reason code below doesn't produce anything. Probably because the instance doesn't have material set correctly
 			// const color = new THREE.Color(Math.random(), Math.random(), Math.random())
 			// books.current.setColorAt(instanceId, color)
 			// books.current.instanceColor.needsUpdate = true
