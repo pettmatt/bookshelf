@@ -43,7 +43,12 @@ export default function Book({ books, material, count, position, enableClick }) 
 			const scale = new THREE.Vector3()
 			matrix.decompose(position, rotation, scale)
 
-			position.add(new THREE.Vector3(0, 0, 2))
+			const isInTargetPosition = position.z > 0
+			if (isInTargetPosition) {
+				position.sub(new THREE.Vector3(0, 0, 2))
+			} else {
+				position.add(new THREE.Vector3(0, 0, 2))
+			}
 
 			matrix.compose(position, rotation, scale)
 			books.current.setMatrixAt(instanceId, matrix)
